@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HMC – Industries Overview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0e1014; color: #f8f9fa; font-family: 'Inter', sans-serif; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ── */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+      background: rgba(18,18,18,0.92);
+      height: 80px;
+      display: flex;
+      align-items: center;
+      padding: 0 360px;
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 1200px;
+    }
+    .nav-logo img { height: 50px; display: block; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+    .nav-links li a,
+    .nav-links li span {
+      font-size: 15px;
+      font-weight: 500;
+      color: #9ca3af;
+      letter-spacing: 0.3px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+    .nav-links .nav-phone { color: #f8f9fa; }
+    .nav-links .nav-cta {
+      background: #e63946;
+      color: #f8f9fa !important;
+      font-weight: 600;
+      padding: 6px 24px;
+      border-radius: 4px;
+    }
+    .chevron {
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      border-right: 1px solid #9ca3af;
+      border-bottom: 1px solid #9ca3af;
+      transform: rotate(45deg);
+      margin-bottom: 2px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      background: #121212;
+      min-height: 700px;
+      display: flex;
+      align-items: flex-start;
+      overflow: hidden;
+      padding: 106px 360px 60px;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    .hero-blue-wash {
+      position: absolute;
+      inset: 0;
+      background: rgba(5,20,55,0.4);
+      mix-blend-mode: color;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(8,14,28,0.8) 0%, rgba(8,14,28,0.55) 30%, rgba(8,14,28,0.2) 55%, rgba(8,14,28,0.15) 100%),
+        linear-gradient(180deg, rgba(8,14,28,0.35) 0%, rgba(8,14,28,0.1) 40%, rgba(8,14,28,0.65) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      gap: 43px;
+      max-width: 1200px;
+      width: 100%;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(0,86,179,0.06);
+      border: 1px solid rgba(0,86,179,0.2);
+      border-radius: 2px;
+      padding: 8px 15px;
+    }
+    .hero-badge-dot {
+      width: 6px;
+      height: 6px;
+      background: #0056b3;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+    .hero-badge-text {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #1a6fcc;
+    }
+    .hero-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: clamp(42px, 5vw, 72px);
+      line-height: 1.05;
+      letter-spacing: -1.5px;
+      text-transform: uppercase;
+      color: #fff;
+    }
+    .hero-sub {
+      font-size: 17px;
+      font-weight: 400;
+      line-height: 1.65;
+      color: #c7ccd4;
+      max-width: 560px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #e63946;
+      color: #f8f9fa;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 18px 36px;
+      border-radius: 4px;
+      cursor: pointer;
+      border: none;
+      white-space: nowrap;
+    }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      color: #9ca3af;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 18px 36px;
+      border-radius: 4px;
+      border: 1px solid #3a3a3c;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-arrow {
+      width: 14px;
+      height: 14px;
+      border-right: 1.5px solid currentColor;
+      border-top: 1.5px solid currentColor;
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+    .btn-phone-icon {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+
+    /* ── INDUSTRY CARDS ── */
+    .cards-section {
+      background: #0e1014;
+      padding: 100px 24px;
+      display: flex;
+      justify-content: center;
+    }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 4px;
+      overflow: hidden;
+      max-width: 1368px;
+      width: 100%;
+    }
+    .card {
+      background: #2c2c2e;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .card-img {
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .card-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(5,20,55,0.4), rgba(44,44,46,0.6) 72%);
+      mix-blend-mode: multiply;
+    }
+    .card-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 40px 36px 44px;
+      position: relative;
+    }
+    .card-icon {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .card-icon img { width: 30px; height: 30px; object-fit: contain; }
+    .card-number {
+      position: absolute;
+      top: 8px;
+      right: 18px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 64px;
+      line-height: 64px;
+      color: rgba(248,249,250,0.02);
+      pointer-events: none;
+      user-select: none;
+    }
+    .card-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 1.6;
+      text-transform: uppercase;
+      color: #f8f9fa;
+      margin-top: 23px;
+    }
+    .card-desc {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.6;
+      color: #f8f9fa;
+      margin-top: 13px;
+      flex: 1;
+    }
+    .card-list {
+      list-style: none;
+      margin-top: 8px;
+    }
+    .card-list li {
+      position: relative;
+      padding: 7px 0 7px 22px;
+      font-size: 15px;
+      font-weight: 300;
+      color: #f8f9fa;
+      line-height: 1.6;
+      white-space: nowrap;
+    }
+    .card-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 15px;
+      width: 8px;
+      height: 1px;
+      background: #0056b3;
+    }
+    .card-cta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 36px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #0056b3;
+      cursor: pointer;
+    }
+    .card-cta-arrow {
+      width: 10px;
+      height: 10px;
+      border-right: 1.5px solid #0056b3;
+      border-top: 1.5px solid #0056b3;
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+
+    /* ── CTA SECTION ── */
+    .cta-section {
+      position: relative;
+      background: #040811;
+      padding: 100px 24px;
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: #070f1f;
+    }
+    .cta-section::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: black;
+      opacity: 0.45;
+    }
+    .cta-inner {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      max-width: 833px;
+      width: 100%;
+      text-align: center;
+    }
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      justify-content: center;
+    }
+    .section-label::before,
+    .section-label::after {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: #0056b3;
+    }
+    .section-label span {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #0056b3;
+      white-space: nowrap;
+    }
+    .cta-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: clamp(28px, 3.5vw, 44px);
+      line-height: 1.12;
+      color: #fff;
+      max-width: 700px;
+    }
+    .cta-sub {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.65;
+      color: #c7ccd4;
+      max-width: 516px;
+    }
+    .cta-actions {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      justify-content: center;
+      padding-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: #121212;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 100px 360px;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 40px;
+    }
+    .footer-logo img { height: 50px; display: block; }
+    .footer-tagline {
+      margin-top: 15px;
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: #6b7280;
+    }
+    .footer-col-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #9ca3af;
+    }
+    .footer-col ul {
+      list-style: none;
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .footer-col ul li a {
+      font-size: 14px;
+      font-weight: 400;
+      color: #6b7280;
+      line-height: 1.6;
+    }
+    .footer-col ul li a:hover { color: #9ca3af; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 29px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-bottom p,
+    .footer-bottom a {
+      font-size: 12px;
+      color: #6b7280;
+      line-height: 1.6;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1400px) {
+      .nav { padding: 0 48px; }
+      .hero { padding: 100px 48px 60px; }
+      .footer { padding: 80px 48px; }
+    }
+    @media (max-width: 1100px) {
+      .cards-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .hero { padding: 80px 24px 60px; }
+      .cards-grid { grid-template-columns: 1fr 1fr; }
+      .footer { padding: 60px 24px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 520px) {
+      .cards-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <img src="https://www.figma.com/api/mcp/asset/bdb2f138-f2d8-495e-b2cd-406cb528ea12" alt="Halton Mechanical" />
+    </a>
+    <ul class="nav-links">
+      <li><span>Services <span class="chevron"></span></span></li>
+      <li><span>Industries <span class="chevron"></span></span></li>
+      <li><a href="#">Projects</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="tel:4168761061" class="nav-phone">(416) 876-1061</a></li>
+      <li><a href="#" class="nav-cta">Get a Quote</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <img class="hero-bg" src="https://www.figma.com/api/mcp/asset/ce9afcf0-decf-4ef0-999b-772af3743183" alt="" />
+  <div class="hero-blue-wash"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      <span class="hero-badge-text">Who We Work With</span>
+    </div>
+    <h1 class="hero-title">Industries We Serve Across<br>The GTA</h1>
+    <p class="hero-sub">Halton Mechanical delivers CWB-certified structural welding, licensed millwright services, and custom steel fabrication to the facilities that cannot afford downtime, documentation gaps, or unverified subcontractors. One contractor. Full scope. Ministry-ready on every job.</p>
+    <div class="hero-actions">
+      <button class="btn-primary">View All Industries <span class="btn-arrow"></span></button>
+      <button class="btn-secondary">Request a Quote</button>
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRY CARDS -->
+<section class="cards-section">
+  <div class="cards-grid">
+
+    <!-- Card 1: Manufacturing -->
+    <div class="card">
+      <div class="card-img">
+        <img src="https://www.figma.com/api/mcp/asset/b3786bf6-f335-4a3e-87dc-bc71e7b28aed" alt="Manufacturing" />
+      </div>
+      <div class="card-body">
+        <span class="card-number">01</span>
+        <div class="card-icon">
+          <img src="https://www.figma.com/api/mcp/asset/8be9bfeb-e075-42ee-a805-c9b6ce320a14" alt="" />
+        </div>
+        <h3 class="card-title">Manufacturing</h3>
+        <p class="card-desc">Ontario manufacturing plants need structural welding and licensed millwright services that work around production schedules. CWB-certified, MOL-ready documentation on every job. Zero shutdowns caused by our work.</p>
+        <ul class="card-list">
+          <li>Structural Welding</li>
+          <li>Equipment Installation</li>
+          <li>Crane Runway Repair</li>
+          <li>Millwrighting</li>
+        </ul>
+        <div class="card-cta">Explore Manufacturing Services <span class="card-cta-arrow"></span></div>
+      </div>
+    </div>
+
+    <!-- Card 2: Distribution & Warehousing -->
+    <div class="card">
+      <div class="card-img">
+        <img src="https://www.figma.com/api/mcp/asset/f65b4c17-bc3a-4553-b13f-24887e33bf5a" alt="Distribution & Warehousing" />
+      </div>
+      <div class="card-body">
+        <span class="card-number">02</span>
+        <div class="card-icon">
+          <img src="https://www.figma.com/api/mcp/asset/6b1f4a5a-c15c-4368-a4c2-590dd5de6a8e" alt="" />
+        </div>
+        <h3 class="card-title">Distribution &amp; Warehousing</h3>
+        <p class="card-desc">From industrial steel mezzanine installation to certified racking repair and loading dock structural work, Halton Mechanical keeps GTA distribution centres compliant, operational, and inspection-ready at all times.</p>
+        <ul class="card-list">
+          <li>Mezzanine Installation</li>
+          <li>Racking Repair</li>
+          <li>Loading Dock Repair</li>
+          <li>Custom Fabrication</li>
+        </ul>
+        <div class="card-cta">Explore Distribution Services <span class="card-cta-arrow"></span></div>
+      </div>
+    </div>
+
+    <!-- Card 3: Plastics Manufacturing -->
+    <div class="card">
+      <div class="card-img">
+        <img src="https://www.figma.com/api/mcp/asset/b22baf2f-9fde-4f6e-bce9-1c5ced6a4981" alt="Plastics Manufacturing" />
+      </div>
+      <div class="card-body">
+        <span class="card-number">03</span>
+        <div class="card-icon">
+          <img src="https://www.figma.com/api/mcp/asset/0d9c1b86-5b8e-40e8-b9d5-457af36b1ad2" alt="" />
+        </div>
+        <h3 class="card-title">Plastics Manufacturing</h3>
+        <p class="card-desc">Plastics facilities require Red Seal millwright precision for equipment installation, alignment, and mechanical retrofits. ISNetworld-vetted, direct-hire team. Full structural and mechanical scope under one GTA contractor.</p>
+        <ul class="card-list">
+          <li>Precision Alignment</li>
+          <li>Machinery Moving</li>
+          <li>Hydraulic Systems</li>
+          <li>Anchor Frame Fabrication</li>
+        </ul>
+        <div class="card-cta">Explore Plastics Services <span class="card-cta-arrow"></span></div>
+      </div>
+    </div>
+
+    <!-- Card 4: Steel Manufacturing -->
+    <div class="card">
+      <div class="card-img">
+        <img src="https://www.figma.com/api/mcp/asset/a4fd5615-3ff7-4d7a-baf9-fc42da0cb84f" alt="Steel Manufacturing" />
+      </div>
+      <div class="card-body">
+        <span class="card-number">04</span>
+        <div class="card-icon">
+          <img src="https://www.figma.com/api/mcp/asset/dab09ce8-87ec-4b1d-848a-48d575388e07" alt="" />
+        </div>
+        <h3 class="card-title">Steel Manufacturing</h3>
+        <p class="card-desc">Crane runway failures, load-bearing column damage, and structural breakdowns demand same-day GTA response. CWB W47.1 certified, engineer sign-off ready. Weld assessment to documented repair in 72 hours.</p>
+        <ul class="card-list">
+          <li>Crane Runway Repair</li>
+          <li>Emergency Welding</li>
+          <li>Load-Bearing Column Work</li>
+          <li>Same-Day Dispatch</li>
+        </ul>
+        <div class="card-cta">Explore Steel Industry Services <span class="card-cta-arrow"></span></div>
+      </div>
+    </div>
+
+    <!-- Card 5: Food & Processing -->
+    <div class="card">
+      <div class="card-img">
+        <img src="https://www.figma.com/api/mcp/asset/c0b4ce9c-ac50-4a3d-a4a3-8463bba8b9ea" alt="Food & Processing" />
+      </div>
+      <div class="card-body">
+        <span class="card-number">05</span>
+        <div class="card-icon">
+          <img src="https://www.figma.com/api/mcp/asset/bacd190e-c7e1-4ac0-abaf-3b1b849f67fb" alt="" />
+        </div>
+        <h3 class="card-title">Food &amp; Processing</h3>
+        <p class="card-desc">Food and processing facilities need certified welding and millwright services that meet strict hygiene and regulatory standards. Documented procedures, traceable materials, and MOL-ready paperwork on every project.</p>
+        <ul class="card-list">
+          <li>Structural Welding</li>
+          <li>Conveyor Systems</li>
+          <li>Equipment Installation</li>
+          <li>MOL-Ready Docs</li>
+        </ul>
+        <div class="card-cta">Explore Food &amp; Processing Services <span class="card-cta-arrow"></span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <div class="section-label"><span>Get Started</span></div>
+    <h2 class="cta-title">Industrial Repairs, Fabrication &amp; Millwright Services Under One Roof</h2>
+    <p class="cta-sub">Book a no-pressure site visit and get a clear understanding of what your facility needs, timelines, and expected costs.</p>
+    <div class="cta-actions">
+      <button class="btn-primary">Request a Site Visit <span class="btn-arrow"></span></button>
+      <button class="btn-secondary">Send a Project Enquiry</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="footer-logo">
+          <img src="https://www.figma.com/api/mcp/asset/bdb2f138-f2d8-495e-b2cd-406cb528ea12" alt="Halton Mechanical" />
+        </a>
+        <p class="footer-tagline">Industrial millwrighting, structural welding,<br>fabrication, and racking repair services across<br>Halton, Peel, and the Greater Toronto Area.</p>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Services</p>
+        <ul>
+          <li><a href="#">Millwrighting &amp; Mechanical</a></li>
+          <li><a href="#">Welding &amp; Fabrication</a></li>
+          <li><a href="#">Racking Repair</a></li>
+          <li><a href="#">Emergency &amp; Shutdown</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Industries</p>
+        <ul>
+          <li><a href="#">Manufacturing</a></li>
+          <li><a href="#">Distribution &amp; Warehousing</a></li>
+          <li><a href="#">Plastics Manufacturing</a></li>
+          <li><a href="#">Food &amp; Processing</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Company</p>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Projects</a></li>
+          <li><a href="#">Contact</a></li>
+          <li><a href="tel:4168761061">(416) 876-1061</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Halton Mechanical. All rights reserved.</p>
+      <a href="#">Privacy Policy</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
